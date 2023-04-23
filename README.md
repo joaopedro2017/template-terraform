@@ -2,7 +2,7 @@
 
 ## Introdução
 
-Este template para o Terraform, que permite provisionar recursos nas plataformas Azure, AWS e GCP. O Terraform é uma ferramenta de infraestrutura como código que possibilita criar, modificar e versionar infraestruturas de forma automatizada e repetitiva. A criação de um template que suporte múltiplas plataformas como Azure, AWS e GCP é de grande importância para empresas que utilizam diferentes nuvens, tornando o processo de gerenciamento de infraestrutura mais eficiente e padronizado.
+Este template permite a provisionamento de recursos em múltiplas plataformas de nuvem, como Azure, AWS e GCP, através do Terraform. O Terraform é uma ferramenta de infraestrutura como código que possibilita a criação, modificação e versionamento de infraestruturas de forma automatizada e repetitiva. A criação de um template que suporte múltiplas plataformas é de grande importância para empresas que utilizam diferentes nuvens, tornando o processo de gerenciamento de infraestrutura mais eficiente e padronizado. Com este template, é possível utilizar o Terraform para provisionar recursos de infraestrutura em diferentes plataformas de nuvem, reduzindo a necessidade de ferramentas específicas para cada plataforma.
 
 Esse tutorial tem como objetivo fornecer um passo a passo para utilizar o template de criação de recursos nas plataformas Azure, AWS e GCP através do Terraform.
 
@@ -21,8 +21,8 @@ Antes de utilizar o template para provisionar recursos nas plataformas Azure, AW
 3. Em cada arquivo azure.tf, aws.tf e gcp.tf, adicione os blocos de configuração dos recursos que deseja provisionar em cada plataforma. Você pode adicionar um ou mais recursos em cada arquivo, de acordo com suas necessidades.
 4. Para cada recurso que deseja provisionar, edite os blocos de variáveis de acordo com as necessidades do seu ambiente. Certifique-se de que no bloco o atributo "create" esteja definido como true para que o Terraform possa provisioná-lo.
 5. Caso não queira provisionar um recurso específico, basta definir o atributo "create" do bloco como false ou remover o bloco de variáveis relacionado ao recurso.
-6. Após configurar todos os recursos desejados, execute o comando terraform init na pasta raiz do ambiente, para inicializar o projeto.
-7. Execute o comando terraform plan para visualizar as alterações que serão feitas nos recursos antes de provisioná-los na nuvem.
-8. Em seguida, execute o comando terraform apply para criar e provisionar os recursos na nuvem.
+6. Após configurar todos os recursos desejados, execute o comando <b>terraform init </b>na pasta raiz do ambiente, para inicializar o projeto.
+7. Execute o comando <b>terraform plan </b>para visualizar as alterações que serão feitas nos recursos antes de provisioná-los na nuvem.
+8. Em seguida, execute o comando <b>terraform apply</b> para criar e provisionar os recursos na nuvem.
 
 
