@@ -177,3 +177,39 @@ variable "linux_virtual_machine_scale_set" {
     error_message = "O número de instancias do Conjunto de Escalas da Máquina Virtual deve ser entre 1 a 100 instancias."
   }
 }
+
+variable "windows_web_app" {
+  type = object({
+    create           = bool
+    app_names        = list(string)
+    family_plan      = string
+    number_instances = number
+  })
+
+  default = {
+    create           = false
+    app_names        = ["app"]
+    family_plan      = ""
+    number_instances = 1
+  }
+
+  validation {
+    condition     = length(distinct(var.windows_web_app["app_names"])) == length(var.windows_web_app["app_names"])
+    error_message = "A lista de Apps contém valores duplicados."
+  }
+
+  validation {
+    condition     = length(var.windows_web_app.app_names) > 0 && alltrue([for name in var.windows_web_app.app_names : length(name) >= 3 && length(name) <= 63])
+    error_message = "A lista de Apps não pode estar vazia e os nomes devem ter entre 3 e 63 caracteres."
+  }
+
+  validation {
+    condition     = alltrue([for name in var.windows_web_app.app_names : can(regex("^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$", name))])
+    error_message = "Os nomes dos Apps devem conter apenas letras minúsculas, números e o caractere '-' e não pode começar ou terminar com '-'."
+  }
+
+  validation {
+    condition     = var.windows_web_app.number_instances >= 1 && var.windows_web_app.number_instances <= 30
+    error_message = "O número de instancias do Plan-Apps deve ser entre 1 a 30 instancias."
+  }
+}

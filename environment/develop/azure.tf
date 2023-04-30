@@ -51,6 +51,15 @@ module "azure" {
     password         = "4-v3ry-53cr37-p455w0rd"
   }
 
+  ## O Web App é um serviço de hospedagem de aplicativos em nuvem da Microsoft Azure que permite que os desenvolvedores implantem, 
+  ## gerenciem e dimensionem seus aplicativos da web com facilidade e rapidez.
+  windows_web_app = {
+    create           = true
+    app_names        = ["app-windows"]
+    family_plan      = "B1"
+    number_instances = 2
+  }
+
 
 
 
