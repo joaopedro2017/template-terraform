@@ -67,6 +67,14 @@ module "azure" {
     number_instances = 1
   }
 
+  windows_function_app = {
+    create           = true
+    function_names   = ["function-windows"]
+    storage_name     = "functionstoragewind"
+    family_plan      = "B1"
+    number_instances = 1
+  }
+
   linux_function_app = {
     create           = true
     function_names   = ["function-linux"]

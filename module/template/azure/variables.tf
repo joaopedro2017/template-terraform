@@ -250,41 +250,48 @@ variable "linux_web_app" {
   }
 }
 
+variable "windows_function_app" {
+  type = object({
+    create           = bool
+    function_names   = list(string)
+    storage_name     = string
+    family_plan      = string
+    number_instances = number
+  })
 
+  default = {
+    create           = false
+    function_names   = []
+    storage_name     = "storage"
+    family_plan      = ""
+    number_instances = 0
+  }
 
+  validation {
+    condition     = length(distinct(var.windows_function_app["function_names"])) == length(var.windows_function_app["function_names"])
+    error_message = "A lista de Apps contém valores duplicados."
+  }
 
+  validation {
+    condition     = length(var.windows_function_app.function_names) > 0 && alltrue([for name in var.windows_function_app.function_names : length(name) >= 3 && length(name) <= 63])
+    error_message = "A lista de Apps não pode estar vazia e os nomes devem ter entre 3 e 63 caracteres."
+  }
 
+  validation {
+    condition     = alltrue([for name in var.windows_function_app.function_names : can(regex("^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$", name))])
+    error_message = "Os nomes dos Apps devem conter apenas letras minúsculas, números e o caractere '-' e não pode começar ou terminar com '-'."
+  }
 
+  validation {
+    condition     = var.windows_function_app.number_instances >= 1 && var.windows_function_app.number_instances <= 30
+    error_message = "O número de instancias do Plan-Apps deve ser entre 1 a 30 instancias."
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  validation {
+    condition     = length(var.windows_function_app.storage_name) >= 3 && length(var.windows_function_app.storage_name) <= 24
+    error_message = "O nome do Storage para a Function deve ter entre 3 e 24 caracteres."
+  }
+}
 
 variable "linux_function_app" {
   type = object({
