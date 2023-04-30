@@ -28,3 +28,13 @@ module "mysql_database" {
   server_name         = module.mysql_server[0].name
   collation           = var.mysql_database["collation"]
 }
+
+module "postgresql_database" {
+  source              = "../../azure/database/postgresql_database"
+  for_each            = var.postgresql_database["create"] ? toset(var.postgresql_database["database_names"]) : []
+  postgresql_database = each.key
+
+  resource_group_name    = module.resource_group[0].name
+  postgresql_server_name = module.postgresql_server[0].name
+  collation              = var.postgresql_database["collation"]
+}

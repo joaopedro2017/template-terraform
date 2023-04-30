@@ -115,6 +115,16 @@ module "azure" {
     admin_password = "H@Sh1CoR3!"
   }
 
+  postgresql_database = {
+    create         = true
+    database_names = ["banco_login"]
+    collation      = "English_United States.1252"
+    family_type    = "B_Gen5_2"
+    storage_mb     = 5120
+    admin_login    = "acctestun"
+    admin_password = "H@Sh1CoR3!"
+  }
+
 
 
 
