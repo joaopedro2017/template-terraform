@@ -60,6 +60,13 @@ module "azure" {
     number_instances = 2
   }
 
+  linux_web_app = {
+    create           = true
+    app_names        = ["app-linux"]
+    family_plan      = "B1"
+    number_instances = 1
+  }
+
 
 
 
