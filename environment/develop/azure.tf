@@ -83,6 +83,18 @@ module "azure" {
     number_instances = 1
   }
 
+  ## O SQL Server Azure é um serviço de banco de dados relacional em nuvem oferecido pela Microsoft Azure. 
+  ## Ele fornece aos usuários uma plataforma segura e escalável para armazenar, gerenciar e acessar seus dados em qualquer lugar e a qualquer hora.
+  mssql_database = {
+    create         = true
+    database_names = ["banco_login"]
+    collation      = "SQL_Latin1_General_CP1_CI_AS"
+    family_type    = "S0"
+    max_size_gb    = 4
+    admin_login    = "4dm1n157r470r"
+    admin_password = "4-v3ry-53cr37-p455w0rd"
+  }
+
 
 
 
