@@ -95,3 +95,45 @@ variable "virtual_machine_linux" {
     error_message = "Os nomes de contêineres devem conter apenas letras minúsculas, números e o caractere '-' e não pode começar ou terminar com '-'."
   }
 }
+
+variable "windows_virtual_machine_scale_set" {
+  type = object({
+    create           = bool
+    scale_set_name   = string
+    family_type      = string
+    image_name       = string
+    publisher        = string
+    image_version    = string
+    username         = string
+    password         = string
+    number_instances = number
+  })
+
+  default = {
+    password         = ""
+    username         = ""
+    create           = false
+    publisher        = ""
+    scale_set_name   = ""
+    number_instances = 1
+    image_name       = ""
+    image_version    = ""
+    family_type      = "Standard_B1s"
+  }
+
+  validation {
+    condition     = length(var.windows_virtual_machine_scale_set.scale_set_name) >= 3 && length(var.windows_virtual_machine_scale_set.scale_set_name) <= 24
+    error_message = "O nome do Conjunto de Escalas da Máquina Virtual deve ter entre 3 e 24 caracteres."
+  }
+
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$", var.windows_virtual_machine_scale_set.scale_set_name))
+    error_message = "O nome do Conjunto de Escalas da Máquina Virtual deve conter apenas letras minúsculas e números."
+  }
+
+  validation {
+    condition     = var.windows_virtual_machine_scale_set.number_instances >= 1 && var.windows_virtual_machine_scale_set.number_instances <= 100
+    error_message = "O número de instancias do Conjunto de Escalas da Máquina Virtual deve ser entre 1 a 100 instancias."
+  }
+}
+

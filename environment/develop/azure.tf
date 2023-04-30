@@ -27,5 +27,21 @@ module "azure" {
     password      = "Password1234!"
   }
 
+  windows_virtual_machine_scale_set = {
+    create           = true
+    scale_set_name   = "windows-test"
+    family_type      = "Standard_B1s"
+    number_instances = 4
+    publisher        = "MicrosoftWindowsServer"
+    image_name       = "WindowsServer"
+    image_version    = "2016-Datacenter-Server-Core"
+    password         = "P@55w0rd1234!"
+    username         = "adminuser"
+  }
+
+
+
+
+
 
 }
