@@ -14,9 +14,20 @@ module "mariadb_server" {
   prefix              = "${var.company}-${var.environment}"
   location            = var.location
   resource_group_name = module.resource_group[0].name
+  sku_name            = var.mariadb_database["family_type"]
+  storage_mb          = var.mariadb_database["storage_mb"]
+  admin_login         = var.mariadb_database["admin_login"]
+  admin_password      = var.mariadb_database["admin_password"]
+}
 
-  sku_name       = var.mariadb_database["family_type"]
-  storage_mb     = var.mariadb_database["storage_mb"]
-  admin_login    = var.mariadb_database["admin_login"]
-  admin_password = var.mariadb_database["admin_password"]
+module "mysql_server" {
+  source              = "../../azure/database/mysql_server"
+  count               = var.mysql_database["create"] ? 1 : 0
+  prefix              = "${var.company}-${var.environment}"
+  location            = var.location
+  resource_group_name = module.resource_group[0].name
+  sku_name            = var.mysql_database["family_type"]
+  storage_mb          = var.mysql_database["storage_mb"]
+  admin_login         = var.mysql_database["admin_login"]
+  admin_password      = var.mysql_database["admin_password"]
 }

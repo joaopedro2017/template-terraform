@@ -105,6 +105,16 @@ module "azure" {
     admin_password = "H@Sh1CoR3!"
   }
 
+  mysql_database = {
+    create         = true
+    database_names = ["banco_login"]
+    collation      = "utf8_unicode_ci"
+    family_type    = "B_Gen5_2"
+    storage_mb     = 51200
+    admin_login    = "acctestun"
+    admin_password = "H@Sh1CoR3!"
+  }
+
 
 
 
