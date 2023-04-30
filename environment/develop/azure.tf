@@ -95,6 +95,16 @@ module "azure" {
     admin_password = "4-v3ry-53cr37-p455w0rd"
   }
 
+  mariadb_database = {
+    create         = true
+    database_names = ["banco_login"]
+    collation      = "utf8mb4_unicode_520_ci"
+    family_type    = "B_Gen5_2"
+    storage_mb     = 51200
+    admin_login    = "acctestun"
+    admin_password = "H@Sh1CoR3!"
+  }
+
 
 
 

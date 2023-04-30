@@ -372,3 +372,40 @@ variable "mssql_database" {
     error_message = "Os nomes dos bancos devem conter apenas letras minúsculas, números e o caractere '-' e não pode começar ou terminar com '-'."
   }
 }
+
+variable "mariadb_database" {
+  type = object({
+    create         = bool
+    database_names = list(string)
+    family_type    = string
+    collation      = string
+    storage_mb     = number
+    admin_login    = string
+    admin_password = string
+  })
+
+  default = {
+    create         = false
+    database_names = ["database"]
+    family_type    = ""
+    collation      = ""
+    storage_mb     = 0
+    admin_login    = ""
+    admin_password = ""
+  }
+
+  validation {
+    condition     = length(distinct(var.mariadb_database["database_names"])) == length(var.mariadb_database["database_names"])
+    error_message = "A lista de bancos contém valores duplicados."
+  }
+
+  validation {
+    condition     = length(var.mariadb_database.database_names) > 0 && alltrue([for name in var.mariadb_database.database_names : length(name) >= 1 && length(name) <= 128])
+    error_message = "A lista de bancos não pode estar vazia e os nomes devem ter entre 1 e 128 caracteres."
+  }
+
+  validation {
+    condition     = alltrue([for name in var.mariadb_database.database_names : can(regex("^[a-zA-Z0-9_-]+$", name))])
+    error_message = "Os nomes dos bancos devem conter apenas letras minúsculas, números e o caractere '-' e não pode começar ou terminar com '-'."
+  }
+}
