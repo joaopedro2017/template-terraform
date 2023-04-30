@@ -125,9 +125,11 @@ module "azure" {
     admin_password = "H@Sh1CoR3!"
   }
 
-
-
-
-
-
+  # O Azure Storage Account é um serviço de armazenamento em nuvem altamente disponível, escalável e seguro fornecido pelo Microsoft Azure. 
+  # Ele permite armazenar dados em diferentes tipos de contêineres, como blobs, arquivos, tabelas e filas. 
+  storage_container = {
+    create          = true
+    container_names = ["ged-application"]
+    storage_name    = "storageaccount"
+  }
 }

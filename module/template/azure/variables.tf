@@ -1,16 +1,56 @@
 locals {
-  create_virtual_network = 1
-  create_resource_group  = 1
+  create_virtual_network = (
+    var.virtual_machine_linux["create"] ||
+    var.virtual_machine_windows["create"] ||
+    var.linux_virtual_machine_scale_set["create"] ||
+    var.windows_virtual_machine_scale_set["create"]
+  ) ? 1 : 0
+
+  create_resource_group = (
+    var.virtual_machine_linux["create"] ||
+    var.virtual_machine_windows["create"] ||
+    var.linux_virtual_machine_scale_set["create"] ||
+    var.windows_virtual_machine_scale_set["create"] ||
+    var.linux_web_app["create"] ||
+    var.windows_web_app["create"] ||
+    var.mssql_database["create"] ||
+    var.mariadb_database["create"] ||
+    var.postgresql_database["create"] ||
+    var.mysql_database["create"] ||
+    var.storage_container["create"] ||
+    var.linux_function_app["create"] ||
+    var.windows_function_app["create"]
+  ) ? 1 : 0
 }
 
 variable "company" {
   type    = string
   default = "none"
+
+  validation {
+    condition     = length(var.company) >= 3 && length(var.company) <= 24
+    error_message = "O nome da Empresa deve ter entre 3 e 24 caracteres."
+  }
+
+  validation {
+    condition     = can(regex("^[a-z0-9]*$", var.company))
+    error_message = "O nome da Empresa deve conter apenas letras minúsculas e números."
+  }
 }
 
-variable "name" {
+variable "environment" {
   type    = string
   default = "none"
+
+  validation {
+    condition     = length(var.environment) >= 3 && length(var.environment) <= 24
+    error_message = "O nome do Ambiente deve ter entre 3 e 24 caracteres."
+  }
+
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9]*$", var.environment))
+    error_message = "O nome do Ambiente deve conter apenas letras minúsculas e números."
+  }
 }
 
 variable "location" {
@@ -481,5 +521,44 @@ variable "postgresql_database" {
   validation {
     condition     = alltrue([for name in var.postgresql_database.database_names : can(regex("^[a-zA-Z0-9_-]+$", name))])
     error_message = "Os nomes dos bancos devem conter apenas letras minúsculas, números e o caractere '-' e não pode começar ou terminar com '-'."
+  }
+}
+
+variable "storage_container" {
+  type = object({
+    create          = bool
+    container_names = list(string)
+    storage_name    = string
+  })
+
+  default = {
+    create          = false
+    container_names = []
+    storage_name    = "storage"
+  }
+
+  validation {
+    condition     = length(var.storage_container.storage_name) >= 3 && length(var.storage_container.storage_name) <= 24
+    error_message = "O nome do Storage Account deve ter entre 3 e 24 caracteres."
+  }
+
+  validation {
+    condition     = length(distinct(var.storage_container["container_names"])) == length(var.storage_container["container_names"])
+    error_message = "A lista de nomes de container contém valores duplicados."
+  }
+
+  validation {
+    condition     = can(regex("^[a-z0-9]*$", var.storage_container.storage_name))
+    error_message = "O nome do Storage Account deve conter apenas letras minúsculas e números."
+  }
+
+  validation {
+    condition     = length(var.storage_container.container_names) > 0 && alltrue([for name in var.storage_container.container_names : length(name) >= 3 && length(name) <= 63])
+    error_message = "A lista de nomes de contêineres do Storage Account não pode estar vazia e os nomes devem ter entre 3 e 63 caracteres."
+  }
+
+  validation {
+    condition     = alltrue([for name in var.storage_container.container_names : can(regex("^[a-z0-9]+(-[a-z0-9]+)*$", name))])
+    error_message = "Os nomes de contêineres devem conter apenas letras minúsculas, números e o caractere '-' e não podem começar ou terminar com '-'."
   }
 }
