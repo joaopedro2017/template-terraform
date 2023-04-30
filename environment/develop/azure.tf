@@ -39,6 +39,18 @@ module "azure" {
     username         = "adminuser"
   }
 
+  linux_virtual_machine_scale_set = {
+    create           = true
+    scale_set_name   = "application"
+    family_type      = "Standard_B1s"
+    number_instances = 4
+    publisher        = "Canonical"
+    image_name       = "UbuntuServer"
+    image_version    = "16.04-LTS"
+    username         = "adminuser"
+    password         = "4-v3ry-53cr37-p455w0rd"
+  }
+
 
 
 

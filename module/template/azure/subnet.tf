@@ -24,3 +24,12 @@ module "subnet_windows_virtual_machine_scale_set" {
   prefix               = "${var.company}-${var.environment}-vmss-windows"
   address_prefixes     = ["10.0.2.0/24"]
 }
+
+module "subnet_linux_virtual_machine_scale_set" {
+  source               = "../../azure/networking/subnet"
+  count                = var.linux_virtual_machine_scale_set["create"] ? 1 : 0
+  resource_group_name  = module.resource_group[0].name
+  virtual_network_name = var.linux_virtual_machine_scale_set["create"] ? module.virtual_network[0].name : null
+  prefix               = "${var.company}-${var.environment}-vmss-linux"
+  address_prefixes     = ["10.0.3.0/24"]
+}
