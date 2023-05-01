@@ -5,7 +5,7 @@ module "windows_web_app" {
   prefix              = each.key
 
   location        = var.location
-  service_plan_id = module.service_plan_windows[0].id
+  service_plan_id = module.service_plan_app_windows[0].id
 }
 
 module "linux_web_app" {
@@ -15,5 +15,5 @@ module "linux_web_app" {
   prefix              = each.key
 
   location        = var.location
-  service_plan_id = module.service_plan_linux[0].id
+  service_plan_id = module.service_plan_app_linux[0].id
 }
