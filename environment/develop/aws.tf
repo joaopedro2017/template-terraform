@@ -13,8 +13,8 @@ module "aws" {
   # Compute
   elastic_compute_cloud = {
     create         = true
-    instance_names = ["uniademia-teste-vm", "uniademia-develop-app"]
-    ami            = "ami-0a695f0d95cefc163"
+    instance_names = ["uniademia-develop-db"]
+    ami            = "ami-05d8140b845a8aa7b"
     instance_type  = "t2.micro"
     location       = "us-east-2"
     username       = "admin"

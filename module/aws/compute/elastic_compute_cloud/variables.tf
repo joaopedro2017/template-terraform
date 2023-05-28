@@ -29,3 +29,11 @@ variable "username" {
 variable "password" {
   type = string
 }
+
+variable "associate_public_ip_address" {
+  type = bool
+}
+
+variable "vpc_security_group_ids" {
+  type = list(string)
+}

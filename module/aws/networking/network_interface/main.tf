@@ -7,3 +7,7 @@ resource "aws_network_interface" "nic" {
     Environment = var.environment
   }
 }
+
+output "id" {
+  value = aws_network_interface.nic.id
+}
