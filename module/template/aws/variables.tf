@@ -13,7 +13,17 @@ variable "project" {
   default = "none"
 }
 
-variable "ec2" {
+variable "access_key" {
+  type    = string
+  default = "none"
+}
+
+variable "secret_key" {
+  type    = string
+  default = "none"
+}
+
+variable "elastic_compute_cloud" {
   type = object({
     create         = bool
     instance_names = list(string)
@@ -33,8 +43,18 @@ variable "ec2" {
     username       = ""
     password       = ""
   }
+}
 
+variable "simple_storage_service" {
+  type = object({
+    create       = bool
+    bucket_names = list(string)
+  })
 
+  default = {
+    create       = false
+    bucket_names = ["bucket"]
+  }
 }
 
 

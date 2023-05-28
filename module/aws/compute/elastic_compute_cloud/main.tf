@@ -1,4 +1,4 @@
-resource "aws_instance" "example" {
+resource "aws_instance" "elastic_compute_cloud" {
   ami           = var.ami
   instance_type = var.instance_type
   subnet_id     = var.subnet_id

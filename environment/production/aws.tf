@@ -7,7 +7,7 @@ module "aws" {
   environment = "production"
 
 
-  ec2 = {
+  elastic_compute_cloud = {
     create         = true
     instance_names = ["instances", "testes"]
     ami            = "ami-0a695f0d95cefc163"

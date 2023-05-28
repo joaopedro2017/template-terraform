@@ -1,6 +1,6 @@
-module "nic_ec2" {
+module "nic_elastic_compute_cloud" {
   source      = "../../aws/networking/network_interface"
-  subnet_id   = module.subnet_ec2.id
+  subnet_id   = module.subnet_elastic_compute_cloud.id
   private_ips = ["172.16.10.100"]
   project     = var.project
   environment = var.environment
