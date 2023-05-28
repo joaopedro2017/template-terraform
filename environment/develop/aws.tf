@@ -1,5 +1,7 @@
 module "aws" {
   source      = "../../module/template/aws"
+
+  # Obrigatorio 
   location    = "us-east-2"
   project     = "uniacademia"
   environment = "develop"
@@ -14,15 +16,4 @@ module "aws" {
     username       = "admin"
     password       = "Teste@2023"
   }
-
-
-
-
-
-
-
-
-
-
-
 } 

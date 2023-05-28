@@ -1,5 +1,5 @@
 module "windows_function_app" {
-  source   = "../../azure/web/windows_function_app"
+  source   = "../../azure/compute/windows_function_app"
   for_each = var.windows_function_app["create"] ? toset(var.windows_function_app["function_names"]) : []
 
   function_name       = each.key
@@ -12,7 +12,7 @@ module "windows_function_app" {
 }
 
 module "linux_function_app" {
-  source   = "../../azure/web/linux_function_app"
+  source   = "../../azure/compute/linux_function_app"
   for_each = var.linux_function_app["create"] ? toset(var.linux_function_app["function_names"]) : []
 
   function_name       = each.key

@@ -1,5 +1,5 @@
 module "service_plan_app_windows" {
-  source              = "../../azure/web/service_plan"
+  source              = "../../azure/compute/service_plan"
   count               = var.windows_web_app["create"] ? 1 : 0
   resource_group_name = module.resource_group[0].name
   location            = var.location
@@ -11,7 +11,7 @@ module "service_plan_app_windows" {
 }
 
 module "service_plan_app_linux" {
-  source              = "../../azure/web/service_plan"
+  source              = "../../azure/compute/service_plan"
   count               = var.linux_web_app["create"] ? 1 : 0
   resource_group_name = module.resource_group[0].name
   location            = var.location
@@ -23,7 +23,7 @@ module "service_plan_app_linux" {
 }
 
 module "service_plan_windows_function" {
-  source              = "../../azure/web/service_plan"
+  source              = "../../azure/compute/service_plan"
   count               = var.windows_function_app["create"] ? 1 : 0
   resource_group_name = module.resource_group[0].name
   location            = var.location
@@ -35,7 +35,7 @@ module "service_plan_windows_function" {
 }
 
 module "service_plan_linux_function" {
-  source              = "../../azure/web/service_plan"
+  source              = "../../azure/compute/service_plan"
   count               = var.linux_function_app["create"] ? 1 : 0
   resource_group_name = module.resource_group[0].name
   location            = var.location
