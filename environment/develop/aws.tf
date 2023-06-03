@@ -26,4 +26,21 @@ module "aws" {
     create       = true
     bucket_names = ["storage-bucket-unicademia", "bucket-blue-uniacademia"]
   }
+
+  # Database 
+  rds_database = {
+    create               = true
+    db_names             = ["uniacademiamysql", "uniacademiadb"]
+    allocated_storage    = 10    
+    engine               = "mysql"
+    engine_version       = "5.7"
+    instance_class       = "db.t3.micro"
+    db_username          = "foo"
+    db_password          = "foobarbaz"
+    parameter_group_name = "default.mysql5.7"
+  }
+
+
+
+
 }

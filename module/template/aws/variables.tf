@@ -57,6 +57,33 @@ variable "simple_storage_service" {
   }
 }
 
+variable "rds_database" {
+  type = object({
+    create               = bool
+    db_names             = list(string)
+    allocated_storage    = number
+    engine               = string
+    engine_version       = string
+    instance_class       = string
+    db_username          = string
+    db_password          = string
+    parameter_group_name = string
+  })
+
+  default = {
+    create               = false
+    db_names             = ["database"]
+    allocated_storage    = 0
+    engine               = ""
+    engine_version       = ""
+    instance_class       = ""
+    db_username          = ""
+    db_password          = ""
+    parameter_group_name = ""
+  }
+}
+
+
 
 
 
