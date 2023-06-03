@@ -83,7 +83,14 @@ variable "rds_database" {
   }
 }
 
+variable  "athena_database" {
+  type = object({
+    create               = bool
+    db_names             = list(string)
+  })
 
-
-
-
+  default = {
+    create               = false
+    db_names             = ["database"]
+  }
+}
