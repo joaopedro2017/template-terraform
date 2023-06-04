@@ -1,3 +1,10 @@
+locals {
+  create_virtual_network = (
+    var.elastic_compute_cloud["create"] ||
+    var.autoscaling_group["create"]
+  ) ? 1 : 0
+}
+
 variable "location" {
   type    = string
   default = "none"
@@ -83,14 +90,66 @@ variable "rds_database" {
   }
 }
 
-variable  "athena_database" {
+variable "athena_database" {
   type = object({
-    create               = bool
-    db_names             = list(string)
+    create   = bool
+    db_names = list(string)
   })
 
   default = {
-    create               = false
-    db_names             = ["database"]
+    create   = false
+    db_names = ["database"]
+  }
+}
+
+variable "app_runner" {
+  type = object({
+    create           = bool
+    service_names    = list(string)
+    image_identifier = string
+    port             = string
+  })
+
+  default = {
+    create           = false
+    service_names    = ["app"]
+    image_identifier = ""
+    port             = ""
+  }
+}
+
+variable "beanstalk_application" {
+  type = object({
+    create            = bool
+    application_names = list(string)
+  })
+
+  default = {
+    create            = false
+    application_names = ["app"]
+  }
+}
+
+variable "autoscaling_group" {
+  type = object({
+    create           = bool
+    group_name       = string
+    ami              = string
+    instance_type    = string
+    desired_capacity = number
+    min_size         = number
+    max_size         = number
+    location         = string
+  })
+
+  default = {
+    create           = false
+    group_name       = ""
+    ami              = ""
+    instance_type    = ""
+    desired_capacity = 0
+    min_size         = 0
+    max_size         = 0
+    location         = ""
   }
 }
