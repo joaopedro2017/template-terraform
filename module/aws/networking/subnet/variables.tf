@@ -17,3 +17,7 @@ variable "project" {
 variable "environment" {
   type = string
 }
+
+variable "subnet_name" {
+  type = string
+}

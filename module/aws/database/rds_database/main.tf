@@ -8,6 +8,7 @@ resource "aws_db_instance" "rds_db" {
   password             = var.db_password
   parameter_group_name = var.parameter_group_name
   skip_final_snapshot  = true
+  db_subnet_group_name = var.db_subnet_group_name
 
   tags = {
     Name        = var.db_name
