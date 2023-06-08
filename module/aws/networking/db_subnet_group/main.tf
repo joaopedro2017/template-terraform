@@ -6,7 +6,3 @@ resource "aws_db_subnet_group" "db_subnet_group" {
     Name = var.subnet_group_name
   }
 }
-
-output "name" {
-  value = aws_db_subnet_group.db_subnet_group.name
-}

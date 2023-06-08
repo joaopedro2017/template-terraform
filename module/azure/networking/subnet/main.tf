@@ -4,7 +4,3 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = var.virtual_network_name
   address_prefixes     = var.address_prefixes
 }
-
-output "id" {
-  value = azurerm_subnet.subnet.id
-}

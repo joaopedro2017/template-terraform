@@ -18,7 +18,3 @@ resource "azurerm_mysql_server" "mysql_server" {
   ssl_enforcement_enabled           = true
   ssl_minimal_tls_version_enforced  = "TLS1_2"
 }
-
-output "name" {
-  value = azurerm_mysql_server.mysql_server.name
-}

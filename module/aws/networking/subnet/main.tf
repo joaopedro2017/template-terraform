@@ -8,7 +8,3 @@ resource "aws_subnet" "subnet" {
     Environment = var.environment
   }
 }
-
-output "id" {
-  value = aws_subnet.subnet.id
-}

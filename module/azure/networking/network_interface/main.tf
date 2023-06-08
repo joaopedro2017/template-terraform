@@ -9,7 +9,3 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "Dynamic"
   }
 }
-
-output "id" {
-  value = azurerm_network_interface.nic.id
-}

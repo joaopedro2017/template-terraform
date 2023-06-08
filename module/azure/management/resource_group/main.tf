@@ -6,7 +6,3 @@ resource "azurerm_resource_group" "rg" {
     environment = var.environment
   }
 }
-
-output "name" {
-  value = azurerm_resource_group.rg.name
-}

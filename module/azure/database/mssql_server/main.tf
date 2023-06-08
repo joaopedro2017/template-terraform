@@ -7,7 +7,3 @@ resource "azurerm_mssql_server" "mssql" {
   administrator_login_password = var.admin_password
   minimum_tls_version          = "1.2"
 }
-
-output "id" {
-  value = azurerm_mssql_server.mssql.id
-}

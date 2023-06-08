@@ -7,7 +7,3 @@ resource "aws_s3_bucket" "s3" {
     Project     = var.project
   }
 }
-
-output "id" {
-  value = aws_s3_bucket.s3.id
-}

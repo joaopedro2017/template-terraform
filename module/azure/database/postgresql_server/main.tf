@@ -13,7 +13,3 @@ resource "azurerm_postgresql_server" "postgresql_server" {
   version                      = "9.5"
   ssl_enforcement_enabled      = true
 }
-
-output "name" {
-  value = azurerm_postgresql_server.postgresql_server.name
-}

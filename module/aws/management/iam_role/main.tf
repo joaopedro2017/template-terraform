@@ -20,7 +20,3 @@ resource "aws_iam_role" "role" {
     ]
   })
 }
-
-output "arn" {
-  value = aws_iam_role.role.arn
-}

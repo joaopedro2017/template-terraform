@@ -6,7 +6,3 @@ resource "aws_vpc" "vpc" {
     Environment = var.environment
   }
 }
-
-output "id" {
-    value = aws_vpc.vpc.id
-}

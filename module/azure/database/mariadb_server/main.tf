@@ -12,7 +12,3 @@ resource "azurerm_mariadb_server" "maria_server" {
   version                      = "10.2"
   ssl_enforcement_enabled      = true
 }
-
-output "name" {
-  value = azurerm_mariadb_server.maria_server.name
-}
