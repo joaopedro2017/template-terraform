@@ -23,7 +23,11 @@ module "gcp" {
     min_replicas    = 2
     max_replicas    = 2
     cooldown_period = 15
-    zone           = "us-central1-a"
+    zone            = "us-central1-a"
+  }
+
+  app_engine = {
+    create = false
   }
 
 }

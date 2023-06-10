@@ -81,7 +81,7 @@ variable "google_compute_autoscaler" {
     cooldown_period = 0
     zone            = ""
   }
-  
+
   validation {
     condition     = length(var.google_compute_autoscaler.autoscaler_name) >= 1 && length(var.google_compute_autoscaler.autoscaler_name) <= 63
     error_message = "O nome do AutoScaler deve ter entre 1 e 63 caracteres."
@@ -111,8 +111,16 @@ variable "google_compute_autoscaler" {
     condition     = var.google_compute_autoscaler.max_replicas >= var.google_compute_autoscaler.min_replicas
     error_message = "O valor do max_replicas deve ser maior ou igual ao do min_replicas."
   }
+}
 
+variable "app_engine" {
+  type = object({
+    create = bool
+  })
 
+  default = {
+    create = false
+  }
 
 }
 
