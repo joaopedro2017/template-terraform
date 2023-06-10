@@ -1,7 +1,7 @@
 module "mssql_server" {
   source              = "../../azure/database/mssql_server"
   count               = var.mssql_database["create"] ? 1 : 0
-  prefix              = "${var.company}-${var.environment}"
+  prefix              = "${var.project}-${var.environment}"
   resource_group_name = module.resource_group[0].name
   location            = var.location
   admin_login         = var.mssql_database["admin_login"]
@@ -11,7 +11,7 @@ module "mssql_server" {
 module "mariadb_server" {
   source              = "../../azure/database/mariadb_server"
   count               = var.mariadb_database["create"] ? 1 : 0
-  prefix              = "${var.company}-${var.environment}"
+  prefix              = "${var.project}-${var.environment}"
   location            = var.location
   resource_group_name = module.resource_group[0].name
   sku_name            = var.mariadb_database["family_type"]
@@ -23,7 +23,7 @@ module "mariadb_server" {
 module "mysql_server" {
   source              = "../../azure/database/mysql_server"
   count               = var.mysql_database["create"] ? 1 : 0
-  prefix              = "${var.company}-${var.environment}"
+  prefix              = "${var.project}-${var.environment}"
   location            = var.location
   resource_group_name = module.resource_group[0].name
   sku_name            = var.mysql_database["family_type"]
@@ -35,7 +35,7 @@ module "mysql_server" {
 module "postgresql_server" {
   source              = "../../azure/database/postgresql_server"
   count               = var.postgresql_database["create"] ? 1 : 0
-  prefix              = "${var.company}-${var.environment}"
+  prefix              = "${var.project}-${var.environment}"
   location            = var.location
   resource_group_name = module.resource_group[0].name
   sku_name            = var.postgresql_database["family_type"]

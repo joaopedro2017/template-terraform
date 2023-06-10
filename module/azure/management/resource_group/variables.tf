@@ -1,4 +1,4 @@
-variable "company" {
+variable "project" {
   type    = string
   default = "none"
 }

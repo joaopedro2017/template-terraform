@@ -23,17 +23,17 @@ locals {
   ) ? 1 : 0
 }
 
-variable "company" {
+variable "project" {
   type    = string
   default = "none"
 
   validation {
-    condition     = length(var.company) >= 3 && length(var.company) <= 24
+    condition     = length(var.project) >= 3 && length(var.project) <= 24
     error_message = "O nome da Empresa deve ter entre 3 e 24 caracteres."
   }
 
   validation {
-    condition     = can(regex("^[a-z0-9]*$", var.company))
+    condition     = can(regex("^[a-z0-9]*$", var.project))
     error_message = "O nome da Empresa deve conter apenas letras minúsculas e números."
   }
 }

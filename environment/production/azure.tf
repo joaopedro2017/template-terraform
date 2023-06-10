@@ -1,6 +1,6 @@
 # module "azure" {
 #   source      = "../../module/template/azure"
-#   company     = "uniacademia"  ## mudar para Project
+#   project     = "uniacademia"  ## mudar para Project
 #   environment = "production"
 #   location    = "eastus2"
 
