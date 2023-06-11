@@ -1,5 +1,5 @@
 provider "google" {
-  project = var.project
-  region  = var.location
-  zone    = "${var.location}-a"
+  project = var.gcp_authentication["project"]
+  region  = var.gcp_authentication["region"]
+  zone    = var.gcp_authentication["zone"]
 }

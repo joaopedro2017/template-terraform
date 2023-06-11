@@ -2,21 +2,24 @@ module "gcp" {
   source = "../../module/template/gcp"
 
   ## Obrigatorio
-  project     = "terraform-uniacademia"
-  environment = "develop"
-  location    = "us-central1"
+  gcp_authentication = {
+    project     = "terraform-uniacademia"
+    environment = "develop"
+    region      = "us-central1"
+    zone        = "us-central1-a"
+  }
 
   ## Compute
   compute_instance = {
-    create         = false
+    create         = true
     instance_names = ["instance", "instancioa-nova", "teste", "test"]
     instance_image = "debian-cloud/debian-11"
     machine_type   = "e2-medium"
     zone           = "us-central1-a"
   }
 
-  google_compute_autoscaler = {
-    create          = false
+  compute_autoscaler = {
+    create          = true
     autoscaler_name = "application"
     machine_type    = "e2-medium"
     instance_image  = "debian-cloud/debian-11"
@@ -27,16 +30,17 @@ module "gcp" {
   }
 
   app_engine = {
-    create = false
+    create   = false
+    location = "us-central1"
   }
 
   ## Database
   sql_database = {
-    create           = false
+    create           = true
     database_names   = ["application", "login", "api"]
     database_version = "MYSQL_8_0"
     tier             = "db-f1-micro"
-    location         = "us-central1"
+    region         = "us-central1"
   }
 
   ## Storage

@@ -1,23 +1,25 @@
 locals {
   create_virtual_network = (
     var.compute_instance["create"] ||
-    var.google_compute_autoscaler["create"]
+    var.compute_autoscaler["create"]
   ) ? 1 : 0
 }
 
-variable "location" {
-  type    = string
-  default = "none"
-}
+variable "gcp_authentication" {
 
-variable "project" {
-  type    = string
-  default = "none"
-}
+  type = object({
+    project     = string
+    environment = string
+    zone        = string
+    region      = string
+  })
 
-variable "environment" {
-  type    = string
-  default = "none"
+  default = {
+    zone        = ""
+    project     = ""
+    environment = ""
+    region      = ""
+  }
 }
 
 variable "compute_instance" {
@@ -59,7 +61,7 @@ variable "compute_instance" {
 }
 
 
-variable "google_compute_autoscaler" {
+variable "compute_autoscaler" {
   type = object({
     create          = bool
     autoscaler_name = string
@@ -83,43 +85,45 @@ variable "google_compute_autoscaler" {
   }
 
   validation {
-    condition     = length(var.google_compute_autoscaler.autoscaler_name) >= 1 && length(var.google_compute_autoscaler.autoscaler_name) <= 63
+    condition     = length(var.compute_autoscaler.autoscaler_name) >= 1 && length(var.compute_autoscaler.autoscaler_name) <= 63
     error_message = "O nome do AutoScaler deve ter entre 1 e 63 caracteres."
   }
 
   validation {
-    condition     = can(regex("^[a-z]+(-[a-z0-9]+)*$", var.google_compute_autoscaler.autoscaler_name))
+    condition     = can(regex("^[a-z]+(-[a-z0-9]+)*$", var.compute_autoscaler.autoscaler_name))
     error_message = "O nome do AutoScaler deve conter apenas letras minúsculas e números."
   }
 
   validation {
-    condition     = var.google_compute_autoscaler.cooldown_period >= 15
+    condition     = var.compute_autoscaler.cooldown_period >= 15
     error_message = "O valor do cooldown_period deve ser maior ou igual a 15."
   }
 
   validation {
-    condition     = var.google_compute_autoscaler.min_replicas >= 0
+    condition     = var.compute_autoscaler.min_replicas >= 0
     error_message = "O valor do min_replicas deve ser maior ou igual a 0."
   }
 
   validation {
-    condition     = var.google_compute_autoscaler.max_replicas >= 1
+    condition     = var.compute_autoscaler.max_replicas >= 1
     error_message = "O valor do max_replicas deve ser maior ou igual a 1."
   }
 
   validation {
-    condition     = var.google_compute_autoscaler.max_replicas >= var.google_compute_autoscaler.min_replicas
+    condition     = var.compute_autoscaler.max_replicas >= var.compute_autoscaler.min_replicas
     error_message = "O valor do max_replicas deve ser maior ou igual ao do min_replicas."
   }
 }
 
 variable "app_engine" {
   type = object({
-    create = bool
+    create   = bool
+    location = string
   })
 
   default = {
-    create = false
+    create   = false
+    location = ""
   }
 }
 
@@ -129,7 +133,7 @@ variable "sql_database" {
     database_names   = list(string)
     database_version = string
     tier             = string
-    location         = string
+    region           = string
   })
 
   default = {
@@ -137,7 +141,7 @@ variable "sql_database" {
     database_names   = ["database"]
     database_version = ""
     tier             = ""
-    location         = ""
+    region           = ""
   }
 
   validation {
