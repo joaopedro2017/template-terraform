@@ -24,7 +24,7 @@ module "gcp" {
     machine_type    = "e2-medium"
     instance_image  = "debian-cloud/debian-11"
     min_replicas    = 2
-    max_replicas    = 2
+    max_replicas    = 3
     cooldown_period = 15
     zone            = "us-central1-a"
   }

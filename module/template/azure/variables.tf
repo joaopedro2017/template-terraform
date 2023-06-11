@@ -23,39 +23,42 @@ locals {
   ) ? 1 : 0
 }
 
-variable "project" {
-  type    = string
-  default = "none"
+variable "az_authentication" {
+  type = object({
+    project         = string
+    environment     = string
+    client_id       = string
+    client_secret   = string
+    tenant_id       = string
+    subscription_id = string
+    location        = string
+  })
 
-  validation {
-    condition     = length(var.project) >= 3 && length(var.project) <= 24
-    error_message = "O nome da Empresa deve ter entre 3 e 24 caracteres."
+  default = {
+    project         = ""
+    environment     = ""
+    client_id       = "ffffffff-ffff-ffff-ffff-ffffffffffff"
+    client_secret   = ""
+    tenant_id       = "ffffffff-ffff-ffff-ffff-ffffffffffff"
+    subscription_id = "ffffffff-ffff-ffff-ffff-ffffffffffff"
+    location        = ""
   }
 
   validation {
-    condition     = can(regex("^[a-z0-9]*$", var.project))
-    error_message = "O nome da Empresa deve conter apenas letras minúsculas e números."
-  }
-}
-
-variable "environment" {
-  type    = string
-  default = "none"
-
-  validation {
-    condition     = length(var.environment) >= 3 && length(var.environment) <= 24
-    error_message = "O nome do Ambiente deve ter entre 3 e 24 caracteres."
+    condition     = length(var.az_authentication.project) >= 3 && length(var.az_authentication.project) <= 24
+    error_message = "O nome do projeto deve ter entre 3 e 24 caracteres."
   }
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9]*$", var.environment))
-    error_message = "O nome do Ambiente deve conter apenas letras minúsculas e números."
+    condition     = can(regex("^[a-z0-9]*$", var.az_authentication.project))
+    error_message = "O nome do projeto deve conter apenas letras minúsculas e números."
   }
-}
 
-variable "location" {
-  type    = string
-  default = "none"
+  validation {
+    condition     = can(regex("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", var.az_authentication.client_id)) && can(regex("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", var.az_authentication.tenant_id)) && can(regex("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", var.az_authentication.subscription_id))
+    error_message = "Client Id, Tenant Id e Subscription Id devem estar no formato: ffffffff-ffff-ffff-ffff-ffffffffffff ."
+  }
+
 }
 
 variable "virtual_machine_windows" {

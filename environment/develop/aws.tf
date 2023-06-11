@@ -16,7 +16,7 @@ module "aws" {
     instance_names = ["ec2-2023"]
     ami            = "ami-05d8140b845a8aa7b"
     instance_type  = "t2.micro"
-    region       = "us-east-2"
+    region         = "us-east-2"
     username       = "admin"
     password       = "Teste@2023"
   }
@@ -29,7 +29,7 @@ module "aws" {
     desired_capacity = 32
     min_size         = 0
     max_size         = 32
-    region         = "us-east-2"
+    region           = "us-east-2"
   }
 
   ## imagens publicas do ecr 
@@ -63,7 +63,7 @@ module "aws" {
     db_username          = "foo"
     db_password          = "foobarbaz"
     parameter_group_name = "default.mysql5.7"
-    region             = "us-east-2"
+    region               = "us-east-2"
   }
 
   athena_database = {

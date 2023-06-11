@@ -1,9 +1,9 @@
 module "mssql_server" {
   source              = "../../azure/database/mssql_server"
   count               = var.mssql_database["create"] ? 1 : 0
-  prefix              = "${var.project}-${var.environment}"
+  prefix              = "${var.az_authentication["project"]}-${var.az_authentication["environment"]}"
   resource_group_name = module.resource_group[0].name
-  location            = var.location
+  location            = var.az_authentication["location"]
   admin_login         = var.mssql_database["admin_login"]
   admin_password      = var.mssql_database["admin_password"]
 }
@@ -11,8 +11,8 @@ module "mssql_server" {
 module "mariadb_server" {
   source              = "../../azure/database/mariadb_server"
   count               = var.mariadb_database["create"] ? 1 : 0
-  prefix              = "${var.project}-${var.environment}"
-  location            = var.location
+  prefix              = "${var.az_authentication["project"]}-${var.az_authentication["environment"]}"
+  location            = var.az_authentication["location"]
   resource_group_name = module.resource_group[0].name
   sku_name            = var.mariadb_database["family_type"]
   storage_mb          = var.mariadb_database["storage_mb"]
@@ -23,8 +23,8 @@ module "mariadb_server" {
 module "mysql_server" {
   source              = "../../azure/database/mysql_server"
   count               = var.mysql_database["create"] ? 1 : 0
-  prefix              = "${var.project}-${var.environment}"
-  location            = var.location
+  prefix              = "${var.az_authentication["project"]}-${var.az_authentication["environment"]}"
+  location            = var.az_authentication["location"]
   resource_group_name = module.resource_group[0].name
   sku_name            = var.mysql_database["family_type"]
   storage_mb          = var.mysql_database["storage_mb"]
@@ -35,8 +35,8 @@ module "mysql_server" {
 module "postgresql_server" {
   source              = "../../azure/database/postgresql_server"
   count               = var.postgresql_database["create"] ? 1 : 0
-  prefix              = "${var.project}-${var.environment}"
-  location            = var.location
+  prefix              = "${var.az_authentication["project"]}-${var.az_authentication["environment"]}"
+  location            = var.az_authentication["location"]
   resource_group_name = module.resource_group[0].name
   sku_name            = var.postgresql_database["family_type"]
   storage_mb          = var.postgresql_database["storage_mb"]

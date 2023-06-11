@@ -69,7 +69,7 @@ variable "compute_autoscaler" {
     instance_image  = string
     min_replicas    = number
     max_replicas    = number
-    cooldown_period = number ## nao deve ser menor q 15
+    cooldown_period = number
     zone            = string
   })
 
@@ -79,7 +79,7 @@ variable "compute_autoscaler" {
     machine_type    = ""
     instance_image  = ""
     min_replicas    = 0
-    max_replicas    = 0
+    max_replicas    = 1
     cooldown_period = 0
     zone            = ""
   }
@@ -110,7 +110,7 @@ variable "compute_autoscaler" {
   }
 
   validation {
-    condition     = var.compute_autoscaler.max_replicas >= var.compute_autoscaler.min_replicas
+    condition     = var.compute_autoscaler.max_replicas > var.compute_autoscaler.min_replicas
     error_message = "O valor do max_replicas deve ser maior ou igual ao do min_replicas."
   }
 }
