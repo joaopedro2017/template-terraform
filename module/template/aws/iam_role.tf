@@ -4,6 +4,6 @@ module "iam_beanstalk" {
   iam_role    = var.beanstalk_application["create"] ? "beanstalk-service-role" : null
   action      = "sts:AssumeRole"
   service     = "elasticbeanstalk.amazonaws.com"
-  project     = var.project
-  environment = var.environment
+  project     = var.aws_authentication["project"]
+  environment = var.aws_authentication["environment"]
 }

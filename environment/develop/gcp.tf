@@ -11,7 +11,7 @@ module "gcp" {
 
   ## Compute
   compute_instance = {
-    create         = true
+    create         = false
     instance_names = ["instance", "instancioa-nova", "teste", "test"]
     instance_image = "debian-cloud/debian-11"
     machine_type   = "e2-medium"
@@ -19,7 +19,7 @@ module "gcp" {
   }
 
   compute_autoscaler = {
-    create          = true
+    create          = false
     autoscaler_name = "application"
     machine_type    = "e2-medium"
     instance_image  = "debian-cloud/debian-11"
@@ -36,16 +36,16 @@ module "gcp" {
 
   ## Database
   sql_database = {
-    create           = true
+    create           = false
     database_names   = ["application", "login", "api"]
     database_version = "MYSQL_8_0"
     tier             = "db-f1-micro"
-    region         = "us-central1"
+    region           = "us-central1"
   }
 
   ## Storage
   storage_bucket = {
-    create       = true
+    create       = false
     bucket_names = ["bucket-uniacademia", "unicademia_public"]
     location     = "US"
   }

@@ -4,9 +4,9 @@ module "subnet_elastic_compute_cloud" {
   vpc_id            = module.vpc[0].id
   cidr_block        = "172.16.10.0/24"
   subnet_name       = "ec2"
-  availability_zone = "${var.autoscaling_group["location"]}a"
-  project           = var.project
-  environment       = var.environment
+  availability_zone = "${var.autoscaling_group["region"]}a"
+  project           = var.aws_authentication["project"]
+  environment       = var.aws_authentication["environment"]
 }
 
 module "subnet_autoscaling_group" {
@@ -15,9 +15,9 @@ module "subnet_autoscaling_group" {
   vpc_id            = module.vpc[0].id
   cidr_block        = "172.16.11.0/24"
   subnet_name       = "ag"
-  availability_zone = "${var.autoscaling_group["location"]}a"
-  project           = var.project
-  environment       = var.environment
+  availability_zone = "${var.autoscaling_group["region"]}a"
+  project           = var.aws_authentication["project"]
+  environment       = var.aws_authentication["environment"]
 }
 
 module "subnet_rds_database_a" {
@@ -26,9 +26,9 @@ module "subnet_rds_database_a" {
   vpc_id            = module.vpc[0].id
   cidr_block        = "172.16.12.0/24"
   subnet_name       = "rds-a"
-  availability_zone = "${var.rds_database["location"]}b"
-  project           = var.project
-  environment       = var.environment
+  availability_zone = "${var.rds_database["region"]}b"
+  project           = var.aws_authentication["project"]
+  environment       = var.aws_authentication["environment"]
 }
 
 module "subnet_rds_database_b" {
@@ -37,7 +37,7 @@ module "subnet_rds_database_b" {
   vpc_id            = module.vpc[0].id
   cidr_block        = "172.16.13.0/24"
   subnet_name       = "rds-b"
-  availability_zone = "${var.rds_database["location"]}c"
-  project           = var.project
-  environment       = var.environment
+  availability_zone = "${var.rds_database["region"]}c"
+  project           = var.aws_authentication["project"]
+  environment       = var.aws_authentication["environment"]
 }

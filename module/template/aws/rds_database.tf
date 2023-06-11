@@ -10,6 +10,6 @@ module "rds_database" {
   parameter_group_name = var.rds_database["parameter_group_name"]
   instance_class       = var.rds_database["instance_class"]
   db_subnet_group_name = module.db_subnet_group[0].name
-  project              = var.project
-  environment          = var.environment
+  project              = var.aws_authentication["project"]
+  environment          = var.aws_authentication["environment"]
 }

@@ -4,6 +4,6 @@ module "app_runner" {
   service_name     = each.key
   image_identifier = var.app_runner["image_identifier"]
   port             = var.app_runner["port"]
-  project          = var.project
-  environment      = var.environment
+  project          = var.aws_authentication["project"]
+  environment      = var.aws_authentication["environment"]
 }

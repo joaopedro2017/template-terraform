@@ -6,29 +6,23 @@ locals {
   ) ? 1 : 0
 }
 
-variable "location" {
-  type    = string
-  default = "none"
-}
+variable "aws_authentication" {
 
-variable "environment" {
-  type    = string
-  default = "none"
-}
+  type = object({
+    project     = string
+    environment = string
+    access_key  = string
+    secret_key  = string
+    region      = string
+  })
 
-variable "project" {
-  type    = string
-  default = "none"
-}
-
-variable "access_key" {
-  type    = string
-  default = "none"
-}
-
-variable "secret_key" {
-  type    = string
-  default = "none"
+  default = {
+    project     = ""
+    environment = ""
+    access_key  = ""
+    secret_key  = ""
+    region      = ""
+  }
 }
 
 variable "elastic_compute_cloud" {
@@ -37,7 +31,7 @@ variable "elastic_compute_cloud" {
     instance_names = list(string)
     ami            = string
     instance_type  = string
-    location       = string
+    region         = string
     username       = string
     password       = string
   })
@@ -47,7 +41,7 @@ variable "elastic_compute_cloud" {
     instance_names = ["instances"]
     ami            = ""
     instance_type  = ""
-    location       = ""
+    region         = ""
     username       = ""
     password       = ""
   }
@@ -116,7 +110,7 @@ variable "rds_database" {
     db_username          = string
     db_password          = string
     parameter_group_name = string
-    location             = string
+    region               = string
   })
 
   default = {
@@ -129,7 +123,7 @@ variable "rds_database" {
     db_username          = ""
     db_password          = ""
     parameter_group_name = ""
-    location             = ""
+    region               = ""
   }
 
   validation {
@@ -262,7 +256,7 @@ variable "autoscaling_group" {
     desired_capacity = number
     min_size         = number
     max_size         = number
-    location         = string
+    region           = string
   })
 
   default = {
@@ -273,7 +267,7 @@ variable "autoscaling_group" {
     desired_capacity = 0
     min_size         = 0
     max_size         = 0
-    location         = ""
+    region           = ""
   }
 
   validation {
@@ -295,5 +289,4 @@ variable "autoscaling_group" {
     condition     = var.autoscaling_group.desired_capacity >= var.autoscaling_group.min_size && var.autoscaling_group.desired_capacity <= var.autoscaling_group.max_size
     error_message = "O número mínimo de instancias em execução do Grupo AutoScaling deve estar entre o número mínimo e máximo."
   }
-
 }
