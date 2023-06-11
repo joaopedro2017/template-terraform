@@ -53,7 +53,7 @@ variable "compute_instance" {
   }
 
   validation {
-    condition     = alltrue([for name in var.compute_instance.instance_names : can(regex("^[a-z0-9]+(-[a-z0-9]+)*$", name))])
+    condition     = alltrue([for name in var.compute_instance.instance_names : can(regex("^[a-z]+(-[a-z0-9]+)*$", name))])
     error_message = "Os nomes dos instance devem conter apenas letras minúsculas, números e o caractere '-' e não podem começar ou terminar com '-'."
   }
 }
@@ -121,8 +121,77 @@ variable "app_engine" {
   default = {
     create = false
   }
-
 }
 
+variable "sql_database" {
+  type = object({
+    create           = bool
+    database_names   = list(string)
+    database_version = string
+    tier             = string
+    location         = string
+  })
 
+  default = {
+    create           = false
+    database_names   = ["database"]
+    database_version = ""
+    tier             = ""
+    location         = ""
+  }
+
+  validation {
+    condition     = length(var.sql_database.database_names) > 0
+    error_message = "A lista de databases não pode estar vazia."
+  }
+
+  validation {
+    condition     = length(distinct(var.sql_database["database_names"])) == length(var.sql_database["database_names"])
+    error_message = "A lista de nomes contém valores duplicados."
+  }
+
+  validation {
+    condition     = alltrue([for name in var.sql_database.database_names : length(name) >= 3 && length(name) <= 63])
+    error_message = "Cada nome deve ter entre 3 e 63 caracteres."
+  }
+
+  validation {
+    condition     = alltrue([for name in var.sql_database.database_names : can(regex("^[a-zA-Z0-9_-]+$", name))])
+    error_message = "Os nomes dos databases devem conter apenas letras minúsculas, números e os caractere ('-' e '_')."
+  }
+}
+
+variable "storage_bucket" {
+  type = object({
+    create       = bool
+    bucket_names = list(string)
+    location     = string
+  })
+
+  default = {
+    create       = false
+    bucket_names = ["bucket"]
+    location     = ""
+  }
+
+  validation {
+    condition     = length(var.storage_bucket.bucket_names) > 0
+    error_message = "A lista de bucket não pode estar vazia."
+  }
+
+  validation {
+    condition     = length(distinct(var.storage_bucket["bucket_names"])) == length(var.storage_bucket["bucket_names"])
+    error_message = "A lista de nomes contém valores duplicados."
+  }
+
+  validation {
+    condition     = alltrue([for name in var.storage_bucket.bucket_names : length(name) >= 3 && length(name) <= 63])
+    error_message = "Cada nome deve ter entre 3 e 63 caracteres."
+  }
+
+  validation {
+    condition     = alltrue([for name in var.storage_bucket.bucket_names : can(regex("^[a-z0-9]+([_-][a-z0-9]+)*$", name))])
+    error_message = "Os nomes dos bucket devem conter apenas letras minúsculas, números e os caractere ('-' e '_')."
+  }
+}
 

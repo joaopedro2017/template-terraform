@@ -30,4 +30,19 @@ module "gcp" {
     create = false
   }
 
+  ## Database
+  sql_database = {
+    create           = false
+    database_names   = ["application", "login", "api"]
+    database_version = "MYSQL_8_0"
+    tier             = "db-f1-micro"
+    location         = "us-central1"
+  }
+
+  ## Storage
+  storage_bucket = {
+    create       = true
+    bucket_names = ["bucket-uniacademia", "unicademia_public"]
+    location     = "US"
+  }
 }
